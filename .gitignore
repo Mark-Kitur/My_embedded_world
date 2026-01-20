@@ -1,0 +1,7 @@
+/build
+/Debug
+*.vs
+*.xml
+*.cproj
+*.vscode
+*.atsln
