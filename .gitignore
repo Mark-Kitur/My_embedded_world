@@ -1,5 +1,8 @@
 /build
 /Debug
+/include 
+/test
+
 *.vs
 *.xml
 *.cproj
