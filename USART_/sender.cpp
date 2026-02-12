@@ -1,5 +1,7 @@
 #include <avr/io.h>
 #include <util/delay.h>
+#define F_CPU 8000000UL
+
 
 void USART_init(unsigned int ubrr) {
     // Baud rate
@@ -26,13 +28,29 @@ void USART_Transmit(unsigned int data) {
     // Send lower 8 bits
     UDR0 = (unsigned char)data;
 }
+void USART_send_char( char word){
+    while (!(UCSR0A & (1<<UDRE0)));
+
+    UDR0 =word;
+    
+    }
+
+void USART_send_string( const char* str){
+    while (*str){
+        USART_send_char(*str);
+        str ++;
+    }
+}
+
 
 int main(void) {
     USART_init(52); // 9600 baud @ 16 MHz
-    _delay_ms(1000);
+    _delay_ms(500);
 
     while (1) {
         USART_Transmit(13); // send number 13
-        _delay_ms(500);
+        _delay_ms(2000);
+        USART_send_string("MARK");
+
     }
 }
